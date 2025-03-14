@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">My Schedules</h1>
+                </div>
+                <div class="flex items-center">
+                    <a href="{{ url_for('lawyer_dashboard') }}" 
+                       class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Filters -->
+        <div class="mb-6 flex space-x-4">
+            <button onclick="filterRequests('all')" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                All
+            </button>
+            <button onclick="filterRequests('pending')" class="px-4 py-2 bg-yellow-100 rounded-md hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                Pending
+            </button>
+            <button onclick="filterRequests('accepted')" class="px-4 py-2 bg-green-100 rounded-md hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-green-400">
+                Accepted
+            </button>
+            <button onclick="filterRequests('rejected')" class="px-4 py-2 bg-red-100 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-red-400">
+                Rejected
+            </button>
+        </div>
+
+        <!-- Meeting Requests Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if meeting_requests %}
+                {% for request in meeting_requests %}
+                <div class="meeting-request bg-white rounded-lg shadow-md overflow-hidden" data-status="{{ request.status }}">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">{{ request.client_name }}</h3>
+                                <p class="text-sm text-gray-500">{{ request.date }}</p>
+                                <p class="text-sm text-gray-500">{{ request.time }}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-sm font-semibold
+                                {% if request.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                {% elif request.status == 'accepted' %}bg-green-100 text-green-800
+                                {% else %}bg-red-100 text-red-800{% endif %}">
+                                {{ request.status }}
+                            </span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <p class="text-gray-600"><span class="font-semibold">Purpose:</span> {{ request.purpose }}</p>
+                        </div>
+
+                        {% if request.status == 'pending' %}
+                        <div class="flex space-x-2">
+                            <button onclick="updateMeetingStatus('{{ request._id }}', 'accept')"
+                                    class="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300">
+                                Accept
+                            </button>
+                            <button onclick="updateMeetingStatus('{{ request._id }}', 'reject')"
+                                    class="flex-1 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300">
+                                Reject
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-span-full text-center py-12">
+                    <p class="text-gray-500 text-lg">No meeting requests found</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+    function updateMeetingStatus(requestId, status) {
+        fetch(`/lawyer/update-schedule/${requestId}/${status}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.success) {
+                location.reload();
+            } else {
+                alert(data.message || 'Failed to update status');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to update status');
+        });
+    }
+
+    function filterRequests(status) {
+        const requests = document.querySelectorAll('.meeting-request');
+        requests.forEach(request => {
+            if (status === 'all' || request.dataset.status === status) {
+                request.style.display = 'block';
+            } else {
+                request.style.display = 'none';
+            }
+        });
+    }
+    </script>
+</body>
+</html> 

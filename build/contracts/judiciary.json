@@ -1,0 +1,113 @@
+{
+  "contractName": "judiciary",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/judiciary.sol\":\"judiciary\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/judiciary.sol\":{\"keccak256\":\"0x287bda147e6d284f235ae0e2c2be69b175cb928c1429c56a69597c9ecca70d93\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5496a72453e2c2645f5f4892f0dd2b2cf62d642be3bdc3bb37a2252144078f21\",\"dweb:/ipfs/QmV5cfNA9ScJ1Syn6fkZn7o5ubEsxbjv5ka17kQcheKRQR\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212203062c2ca8506fd449161f977a6303ed00cfce4bb753fb45d960398dc5ac5134764736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212203062c2ca8506fd449161f977a6303ed00cfce4bb753fb45d960398dc5ac5134764736f6c63430008000033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "66:51:1:-:0;;;89:26;;;;;;;;;;66:51;;;;;;",
+  "deployedSourceMap": "66:51:1:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract judiciary {\n  constructor() public {\n  }\n}\n",
+  "sourcePath": "D:\\bits-projects\\juditiary-project\\contracts\\judiciary.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/judiciary.sol",
+    "exportedSymbols": {
+      "judiciary": [
+        227
+      ]
+    },
+    "id": 228,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 222,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".22",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 227,
+        "linearizedBaseContracts": [
+          227
+        ],
+        "name": "judiciary",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 225,
+              "nodeType": "Block",
+              "src": "110:5:1",
+              "statements": []
+            },
+            "id": 226,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 223,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "100:2:1"
+            },
+            "returnParameters": {
+              "id": 224,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "110:0:1"
+            },
+            "scope": 227,
+            "src": "89:26:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 228,
+        "src": "66:51:1"
+      }
+    ],
+    "src": "32:86:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2025-03-13T12:12:16.594Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

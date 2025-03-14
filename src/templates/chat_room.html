@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | LegalConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <div class="bg-white shadow-md p-4">
+            <div class="max-w-4xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for(session['user_type'] + '_dashboard') }}" 
+                       class="text-blue-600 hover:text-blue-800">
+                        ← Back to Dashboard
+                    </a>
+                    <h1 class="text-xl font-semibold">
+                        Chat with {{ other_user['name'] }}
+                    </h1>
+                </div>
+                <div class="text-sm text-gray-500">
+                    {{ other_user['email'] }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="flex-1 max-w-4xl mx-auto w-full p-4 flex flex-col">
+            <!-- Messages Area -->
+            <div id="messages" class="flex-1 overflow-y-auto bg-white rounded-lg shadow-inner p-4 mb-4">
+                {% for message in messages %}
+                <div class="mb-4 {% if message['sender_type'] == session['user_type'] %}text-right{% endif %}">
+                    <div class="inline-block max-w-md rounded-lg p-3 
+                              {% if message['sender_type'] == session['user_type'] %}
+                              bg-blue-500 text-white
+                              {% else %}
+                              bg-gray-200 text-gray-800
+                              {% endif %}">
+                        {{ message['content'] }}
+                        <div class="text-xs mt-1 {% if message['sender_type'] == session['user_type'] %}text-blue-100{% else %}text-gray-500{% endif %}">
+                            {{ message['timestamp'].strftime('%I:%M %p') }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Message Input -->
+            <form id="message-form" class="bg-white rounded-lg shadow-md p-4">
+                <div class="flex space-x-4">
+                    <input type="text" 
+                           id="message-input" 
+                           class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           placeholder="Type your message...">
+                    <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const conversationId = '{{ conversation._id }}';
+        const messages = document.getElementById('messages');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+
+        // Join conversation room
+        socket.emit('join', { conversation_id: conversationId });
+
+        // Handle form submission
+        messageForm.onsubmit = function(e) {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message) {
+                socket.emit('send_message', {
+                    conversation_id: conversationId,
+                    message: message
+                });
+                messageInput.value = '';
+            }
+        };
+
+        // Handle incoming messages
+        socket.on('new_message', function(data) {
+            const isCurrentUser = data.sender_type === '{{ session["user_type"] }}';
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `mb-4 ${isCurrentUser ? 'text-right' : ''}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = `inline-block max-w-md rounded-lg p-3 ${
+                isCurrentUser ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'
+            }`;
+            
+            messageContent.innerHTML = `
+                ${data.content}
+                <div class="text-xs mt-1 ${isCurrentUser ? 'text-blue-100' : 'text-gray-500'}">
+                    ${new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
+            `;
+            
+            messageDiv.appendChild(messageContent);
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        });
+
+        // Auto-scroll to bottom on load
+        messages.scrollTop = messages.scrollHeight;
+    </script>
+</body>
+</html>

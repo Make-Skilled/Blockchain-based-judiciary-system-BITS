@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LegalConnect - Your Legal Solutions Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Hero Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/@heroicons/react@1.0.5/outline.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-pattern {
+            background-color: #1a365d;
+            background-image: radial-gradient(at 50% 50%, #2d4a7c 0%, #1a365d 100%);
+        }
+        /* Add padding to create hover space */
+        .group {
+            padding-bottom: 1rem;
+        }
+
+        /* Ensure dropdown stays visible when hovering */
+        .group:hover .group-hover\:visible {
+            visibility: visible;
+        }
+
+        .group:hover .group-hover\:opacity-100 {
+            opacity: 1;
+        }
+
+        /* Add transition for smooth appearance */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        /* Add gap between button and dropdown */
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        /* Ensure dropdown is above other content */
+        .z-50 {
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                        </svg>
+                        <span class="ml-2 text-2xl font-bold text-gray-800">LegalConnect</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-4">
+                        <!-- Register Dropdown -->
+                        <div class="relative inline-block text-left group">
+                            <button class="px-3 py-2 text-gray-600 hover:text-gray-900 inline-flex items-center">
+                                Register
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50"
+                                 style="transform-origin: top right;">
+                                <div class="py-1" role="menu" aria-orientation="vertical">
+                                    <a href="{{ url_for('lawyer_register') }}" 
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                       role="menuitem">Register as Lawyer</a>
+                                    <a href="{{ url_for('client_register') }}" 
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                       role="menuitem">Register as Client</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Login Dropdown -->
+                        <div class="relative inline-block text-left group">
+                            <button class="px-3 py-2 text-gray-600 hover:text-gray-900 inline-flex items-center">
+                                Login
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out z-50"
+                                 style="transform-origin: top right;">
+                                <div class="py-1" role="menu" aria-orientation="vertical">
+                                    <a href="{{ url_for('lawyer_login') }}" 
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                       role="menuitem">Lawyer Login</a>
+                                    <a href="{{ url_for('client_login') }}" 
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                                       role="menuitem">Client Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="text-center">
+                <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                    <span class="block">Legal Solutions</span>
+                    <span class="block text-blue-400">Made Simple</span>
+                </h1>
+                <p class="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                    Connect with verified lawyers, manage cases, and get expert legal advice all in one place.
+                </p>
+                <div class="mt-10 flex justify-center space-x-4">
+                    <a href="{{ url_for('client_register') }}" 
+                       class="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:text-lg">
+                        Get Started
+                    </a>
+                    <a href="#how-it-works" 
+                       class="px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:text-lg">
+                        Learn More
+                </a>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Why Choose LegalConnect?</h2>
+            </div>
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <!-- Feature 1 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-md bg-blue-500 text-white mx-auto">
+                            <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-medium text-gray-900">Verified Lawyers</h3>
+                        <p class="mt-2 text-gray-500">All lawyers are verified and approved by our admin team.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-md bg-blue-500 text-white mx-auto">
+                            <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-medium text-gray-900">Quick Response</h3>
+                        <p class="mt-2 text-gray-500">Get connected with lawyers quickly and efficiently.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-md bg-blue-500 text-white mx-auto">
+                            <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+                            </svg>
+                        </div>
+                        <h3 class="mt-4 text-xl font-medium text-gray-900">Secure Communication</h3>
+                        <p class="mt-2 text-gray-500">Safe and secure platform for legal communications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div id="how-it-works" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">How It Works</h2>
+            </div>
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+                    <!-- Step 1 -->
+                    <div class="relative">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white mx-auto">
+                                1
+                            </div>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">Register</h3>
+                            <p class="mt-2 text-sm text-gray-500">Create your account as a client or lawyer.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white mx-auto">
+                                2
+                            </div>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">Verification</h3>
+                            <p class="mt-2 text-sm text-gray-500">Lawyers undergo verification process.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white mx-auto">
+                                3
+                            </div>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">Connect</h3>
+                            <p class="mt-2 text-sm text-gray-500">Find and connect with legal professionals.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative">
+                        <div class="text-center">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-500 text-white mx-auto">
+                                4
+                            </div>
+                            <h3 class="mt-4 text-lg font-medium text-gray-900">Collaborate</h3>
+                            <p class="mt-2 text-sm text-gray-500">Work together on your legal matters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-base text-gray-400">&copy; 2024 LegalConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
